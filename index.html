@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Resilion Email Signature Generator</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: 20px auto; }
+    label { display: block; margin-top: 10px; }
+    input { width: 100%; padding: 6px; margin-top: 4px; }
+    #signature-preview { 
+      border: 1px solid #ccc; 
+      padding: 12px; 
+      margin-top: 20px; 
+    }
+  </style>
+</head>
+<body>
+  <h1>Resilion Email Signature Generator</h1>
+  <p>Fill in your details, then click “Copy signature” and paste it into your email settings.</p>
+
+  <label>
+    Full name
+    <input id="name" placeholder="e.g. Catherine Cheung">
+  </label>
+  <label>
+    Title
+    <input id="title" placeholder="e.g. Strategic Communications Lead">
+  </label>
+  <label>
+    Phone
+    <input id="phone" placeholder="e.g. +1 (555) 555-5555">
+  </label>
+  <label>
+    Email
+    <input id="email" placeholder="e.g. catherine@resilionenergia.com">
+  </label>
+
+  <button id="copy-btn" style="margin-top: 15px;">Copy signature</button>
+
+  <h2 style="margin-top: 30px;">Preview</h2>
+  <div id="signature-preview"></div>
+
+  <script>
+    const nameInput = document.getElementById('name');
+    const titleInput = document.getElementById('title');
+    const phoneInput = document.getElementById('phone');
+    const emailInput = document.getElementById('email');
+    const preview = document.getElementById('signature-preview');
+    const copyBtn = document.getElementById('copy-btn');
+
+    function buildSignatureHtml() {
+      const name = nameInput.value || 'Full Name';
+      const title = titleInput.value || 'Title';
+      const phone = phoneInput.value || 'Phone';
+      const email = emailInput.value || 'email@resilionenergia.com';
+
+      // Here is where you’d add Resilion logo, colours, etc.
+      return `
+        <table cellpadding="0" cellspacing="0" style="font-family: Arial, sans-serif; font-size: 12px;">
+          <tr>
+            <td style="padding-right: 12px;">
+              <!-- Replace with Resilion logo image URL -->
+              <img src="https://via.placeholder.com/120x40?text=Resilion+Logo" alt="Resilion" style="display:block;">
+            </td>
+            <td style="border-left: 1px solid #ccc; padding-left: 12px;">
+              <div style="font-size:14px; font-weight:bold;">${name}</div>
+              <div style="color:#555;">${title}</div>
+              <div style="margin-top:6px;">
+                <span>Phone: ${phone}</span><br>
+                <span>Email: <a href="mailto:${email}">${email}</a></span><br>
+                <span>Website: <a href="https://resilionenergia.com">resilionenergia.com</a></span>
+              </div>
+            </td>
+          </tr>
+        </table>
+      `;
+    }
+
+    function updatePreview() {
+      preview.innerHTML = buildSignatureHtml();
+    }
+
+    [nameInput, titleInput, phoneInput, emailInput].forEach(input => {
+      input.addEventListener('input', updatePreview);
+    });
+
+    updatePreview(); // initial
+
+    copyBtn.addEventListener('click', async () => {
+      const signatureHtml = buildSignatureHtml();
+      try {
+        await navigator.clipboard.writeText(signatureHtml);
+        copyBtn.textContent = 'Copied!';
+        setTimeout(() => copyBtn.textContent = 'Copy signature', 1500);
+      } catch (err) {
+        alert('Copy failed. You may need to copy manually from the preview.');
+      }
+    });
+  </script>
+</body>
+</html>
