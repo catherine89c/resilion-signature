@@ -4,41 +4,243 @@
   <meta charset="UTF-8">
   <title>Resilion Email Signature Generator</title>
   <style>
-    body { font-family: Arial, sans-serif; max-width: 800px; margin: 20px auto; }
-    label { display: block; margin-top: 10px; }
-    input { width: 100%; padding: 6px; margin-top: 4px; }
-    #signature-preview { 
-      border: 1px solid #ccc; 
-      padding: 12px; 
-      margin-top: 20px; 
+    :root {
+      --bg-dark: #000000;
+      --card-bg: #111111;
+      --accent: #00d0ff; 
+      --border-subtle: #333333;
+      --email-header-bg: #f4f4f4;
+      --email-border: #dddddd;
+      --text-main: #ffffff;
+      --text-muted: #bbbbbb;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg-dark);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      color: var(--text-main);
+    }
+
+    .page {
+      max-width: 960px;
+      margin: 40px auto;
+      padding: 0 16px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 24px 24px 32px;
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.6);
+    }
+
+    h1 {
+      margin: 0 0 8px 0;
+      font-size: 24px;
+      letter-spacing: 0.03em;
+    }
+
+    .subtitle {
+      margin: 0 0 20px 0;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    label {
+      display: block;
+      margin-top: 12px;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+
+    input {
+      width: 100%;
+      padding: 8px 10px;
+      margin-top: 4px;
+      border-radius: 8px;
+      border: 1px solid var(--border-subtle);
+      background: #050505;
+      color: var(--text-main);
+      font-size: 14px;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px var(--accent);
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .row > .field {
+      flex: 1 1 220px;
+    }
+
+    .actions {
+      margin-top: 18px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 9px 18px;
+      font-size: 14px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    #copy-btn {
+      background: var(--accent);
+      color: #000;
+    }
+
+    #copy-btn:active {
+      transform: scale(0.98);
+    }
+
+    .hint {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* Preview */
+
+    .preview-wrapper {
+      margin-top: 28px;
+    }
+
+    .preview-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .email-frame {
+      background: #ffffff;
+      border-radius: 10px;
+      border: 1px solid var(--email-border);
+      overflow: hidden;
+      max-width: 700px;
+    }
+
+    .email-header-row {
+      display: flex;
+      border-bottom: 1px solid #e0e0e0;
+      background: var(--email-header-bg);
+      font-size: 12px;
+      color: #555555;
+    }
+
+    .email-header-label {
+      width: 70px;
+      padding: 8px 10px;
+      font-weight: 600;
+      border-right: 1px solid #e0e0e0;
+    }
+
+    .email-header-input {
+      flex: 1;
+      padding: 8px 10px;
+      color: #777777;
+    }
+
+    .email-body {
+      padding: 16px 18px 18px;
+      font-size: 13px;
+      color: #111111;
+      min-height: 120px;
+    }
+
+    .email-body p {
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    /* On small screens */
+    @media (max-width: 600px) {
+      .card {
+        padding: 18px 16px 24px;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Resilion Email Signature Generator</h1>
-  <p>Fill in your details, then click “Copy signature” and paste it into your email settings.</p>
+  <div class ="page">
+    <div class="card">
+      <h1>Resilion Email Signature Generator</h1>
+      <p class ="subtitle">
+        Enter your details, check the preview, then click "Copy Signature" and paste it into your email signature settings.
+      </p>
 
-  <label>
-    Full name
-    <input id="name" placeholder="e.g. Catherine Cheung">
-  </label>
-  <label>
-    Title
-    <input id="title" placeholder="e.g. Strategic Communications Lead">
-  </label>
-  <label>
-    Phone
-    <input id="phone" placeholder="e.g. +1 (555) 555-5555">
-  </label>
-  <label>
-    Email
-    <input id="email" placeholder="e.g. catherine@resilionenergia.com">
-  </label>
+    /* Form fields */
+    <div class ="row">
+      <div class ="field">
+        <label for="name">Full name</label>
+        <input id="name" placeholder="Jane Doe">
+      </div>
+    <div class ="field">
+      <label for="title">Title</label>
+      <input id="title" placeholder="Job Title">
+    </div>
+  </div>
 
-  <button id="copy-btn" style="margin-top: 15px;">Copy signature</button>
+  <div class="row">
+    <div class="field">
+      <label for="phone">Phone</label>
+      <input id="phone" placeholder="+1 (555) 555-5555">
+    </div>
+    <div class ="field">
+      <label for="email">Email</label>
+      <input id="email" placeholder="janedoe@resilionenergia.com">
+    </div>
+  </div>
 
-  <h2 style="margin-top: 30px;">Preview</h2>
-  <div id="signature-preview"></div>
+  <div class="actions">
+    <button id="copy-btn">Copy Signature</button>
+  </div>
+
+  /* Preview */
+  <div class="preview-wrapper">
+    <div class="preview-title">Preview</div>
+    <div class="email-frame">
+    <div class="email-header-row">
+      <div class="email-header-label">To</div>
+      <div class="email-header-input">johndoe@example.com</div>
+    </div>
+    <div class="email-header-row">
+      <div class="email-header-label">Subject</div>
+      <div class="email-header-input">Your email subject line</div>
+    </div>
+
+    <div class="email-body">
+      <p>Hello,</p>
+      <p>This is to give you an idea of what an email looks like with your new signature.</p>
+      <p>Best regards,</p>
+      <p>Jane</p>
+      <div id="signature=preview-inner"></div>
+    </div>
+  </div>
+</div>
 
   <script>
     const nameInput = document.getElementById('name');
@@ -49,10 +251,10 @@
     const copyBtn = document.getElementById('copy-btn');
 
     function buildSignatureHtml() {
-      const name = nameInput.value || 'Full Name';
-      const title = titleInput.value || 'Title';
-      const phone = phoneInput.value || 'Phone';
-      const email = emailInput.value || 'email@resilionenergia.com';
+      const name = nameInput.value || 'Jane Doe';
+      const title = titleInput.value || 'Job Title';
+      const phone = phoneInput.value || '+1 (555) 555-5555';
+      const email = emailInput.value || 'janedoe@resilionenergia.com';
 
       // Here is where you’d add Resilion logo, colours, etc.
       return `
