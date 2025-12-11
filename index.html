@@ -185,92 +185,93 @@
   </style>
 </head>
 <body>
-  <div class ="page">
+  <div class="page">
     <div class="card">
-      <h1>Resilion Email Signature Generator</h1>
-      <p class ="subtitle">
-        Enter your details, check the preview, then click "Copy Signature" and paste it into your email signature settings.
+      <h1>Resilion Email Signature</h1>
+      <p class="subtitle">
+        Enter your details below, check the preview, click "Copy Signature", then paste it into your email signature settings.
       </p>
 
-    /* Form fields */
-    <div class ="row">
-      <div class ="field">
-        <label for="name">Full name</label>
-        <input id="name" placeholder="Jane Doe">
+      <!-- Form fields -->
+      <div class="row">
+        <div class="field">
+          <label for="name">Full name</label>
+          <input id="name" placeholder="Jane Doe">
+        </div>
+        <div class="field">
+          <label for="title">Title</label>
+          <input id="title" placeholder="Job Title">
+        </div>
       </div>
-    <div class ="field">
-      <label for="title">Title</label>
-      <input id="title" placeholder="Job Title">
+
+      <div class="row">
+        <div class="field">
+          <label for="phone">Phone</label>
+          <input id="phone" placeholder="+1 (555) 555-5555">
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" placeholder="janedoe@resilionenergia.com">
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="copy-btn">Copy Signature</button>
+      </div>
+
+      <!-- Preview -->
+      <div class="preview-wrapper">
+        <div class="preview-title">Preview</div>
+        <div class="email-frame">
+          <div class="email-header-row">
+            <div class="email-header-label">To</div>
+            <div class="email-header-input">someone@example.com</div>
+          </div>
+          <div class="email-header-row">
+            <div class="email-header-label">Subject</div>
+            <div class="email-header-input">Check out my new Email Signature!</div>
+          </div>
+
+          <div class="email-body">
+            <p>Hello,</p>
+            <p>This is to give you an idea of what an email looks like with your new signature.</p>
+            <p>Best regards,</p>
+            <div id="signature-preview-inner"></div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
-
-  <div class="row">
-    <div class="field">
-      <label for="phone">Phone</label>
-      <input id="phone" placeholder="+1 (555) 555-5555">
-    </div>
-    <div class ="field">
-      <label for="email">Email</label>
-      <input id="email" placeholder="janedoe@resilionenergia.com">
-    </div>
-  </div>
-
-  <div class="actions">
-    <button id="copy-btn">Copy Signature</button>
-  </div>
-
-  /* Preview */
-  <div class="preview-wrapper">
-    <div class="preview-title">Preview</div>
-    <div class="email-frame">
-    <div class="email-header-row">
-      <div class="email-header-label">To</div>
-      <div class="email-header-input">johndoe@example.com</div>
-    </div>
-    <div class="email-header-row">
-      <div class="email-header-label">Subject</div>
-      <div class="email-header-input">Your email subject line</div>
-    </div>
-
-    <div class="email-body">
-      <p>Hello,</p>
-      <p>This is to give you an idea of what an email looks like with your new signature.</p>
-      <p>Best regards,</p>
-      <p>Jane</p>
-      <div id="signature=preview-inner"></div>
-    </div>
-  </div>
-</div>
 
   <script>
     const nameInput = document.getElementById('name');
     const titleInput = document.getElementById('title');
     const phoneInput = document.getElementById('phone');
     const emailInput = document.getElementById('email');
-    const preview = document.getElementById('signature-preview');
+    const previewInner = document.getElementById('signature-preview-inner');
     const copyBtn = document.getElementById('copy-btn');
 
     function buildSignatureHtml() {
-      const name = nameInput.value || 'Jane Doe';
-      const title = titleInput.value || 'Job Title';
-      const phone = phoneInput.value || '+1 (555) 555-5555';
-      const email = emailInput.value || 'janedoe@resilionenergia.com';
+      const name = nameInput.value || 'Full Name';
+      const title = titleInput.value || 'Title';
+      const phone = phoneInput.value || 'Phone';
+      const email = emailInput.value || 'email@resilionenergia.com';
 
-      // Here is where you’d add Resilion logo, colours, etc.
+      // Replace logo URL & colours with real Resilion assets later
       return `
         <table cellpadding="0" cellspacing="0" style="font-family: Arial, sans-serif; font-size: 12px;">
           <tr>
-            <td style="padding-right: 12px;">
-              <!-- Replace with Resilion logo image URL -->
+            <td style="padding-right: 12px; vertical-align: top;">
               <img src="https://via.placeholder.com/120x40?text=Resilion+Logo" alt="Resilion" style="display:block;">
             </td>
-            <td style="border-left: 1px solid #ccc; padding-left: 12px;">
-              <div style="font-size:14px; font-weight:bold;">${name}</div>
-              <div style="color:#555;">${title}</div>
-              <div style="margin-top:6px;">
+            <td style="border-left: 1px solid #cccccc; padding-left: 12px;">
+              <div style="font-size:14px; font-weight:bold; color:#111111;">${name}</div>
+              <div style="color:#555555; margin-bottom:6px;">${title}</div>
+              <div style="color:#333333; line-height:1.4;">
                 <span>Phone: ${phone}</span><br>
-                <span>Email: <a href="mailto:${email}">${email}</a></span><br>
-                <span>Website: <a href="https://resilionenergia.com">resilionenergia.com</a></span>
+                <span>Email: <a href="mailto:${email}" style="color:#0077cc; text-decoration:none;">${email}</a></span><br>
+                <span>Website: <a href="https://resilionenergia.com" style="color:#0077cc; text-decoration:none;">resilionenergia.com</a></span>
               </div>
             </td>
           </tr>
@@ -279,14 +280,15 @@
     }
 
     function updatePreview() {
-      preview.innerHTML = buildSignatureHtml();
+      previewInner.innerHTML = buildSignatureHtml();
     }
 
     [nameInput, titleInput, phoneInput, emailInput].forEach(input => {
       input.addEventListener('input', updatePreview);
     });
 
-    updatePreview(); // initial
+    // Initial render
+    updatePreview();
 
     copyBtn.addEventListener('click', async () => {
       const signatureHtml = buildSignatureHtml();
