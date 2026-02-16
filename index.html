@@ -190,7 +190,7 @@
         Fill out the form below, check the preview, then click "Copy Signature" and paste the signature into your email's signature settings. 
       </p>
 
-    /* Form fields */
+    <!-- Form fields -->
     <div class ="row">
       <div class ="field">
         <label for="name">Full name</label>
@@ -217,7 +217,7 @@
     <button id="copy-btn">Copy Signature</button>
   </div>
 
-  /* Preview */
+  <!-- Preview -->
   <div class="preview-wrapper">
     <div class="preview-title">Preview</div>
     <div class="email-frame">
@@ -235,7 +235,7 @@
       <p>This is to give you an idea of what an email looks like with your new signature.</p>
       <p>Best regards,</p>
       <p>Jane</p>
-      <div id="signature=preview-inner"></div>
+      <div id="signature=preview"></div>
     </div>
   </div>
 </div>
@@ -285,16 +285,24 @@
 
     updatePreview(); // initial
 
-    copyBtn.addEventListener('click', async () => {
-      const signatureHtml = buildSignatureHtml();
-      try {
-        await navigator.clipboard.writeText(signatureHtml);
-        copyBtn.textContent = 'Copied!';
-        setTimeout(() => copyBtn.textContent = 'Copy signature', 1500);
-      } catch (err) {
-        alert('Copy failed. You may need to copy manually from the preview.');
-      }
-    });
+copyBtn.addEventListener('click', async () => {
+  const signatureHtml = buildSignatureHtml();
+
+  try {
+    await navigator.clipboard.write([
+      new ClipboardItem({
+        "text/html": new Blob([signatureHtml], { type: "text/html" }),
+        "text/plain": new Blob([signatureHtml], { type: "text/plain" })
+      })
+    ]);
+
+    copyBtn.textContent = 'Copied!';
+    setTimeout(() => copyBtn.textContent = 'Copy Signature', 1500);
+
+  } catch (err) {
+    alert('Copy failed. You may need to copy manually from the preview.');
+  }
+});
   </script>
 </body>
 </html>
