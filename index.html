@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Resilion Email Signature Generator</title>
+  <title>Gerador de Assinatura de E-mail da Resilion</title>
   <style>
     :root {
       --bg-dark: #0B0B0B;
@@ -179,52 +179,52 @@
 <body>
   <div class="page">
     <div class="card">
-      <h1>Resilion Email Signature Generator</h1>
+      <h1>Gerador de Assinatura de E-mail da Resilion</h1>
       <p class="subtitle">
-        Fill out the form below, check the preview, then click "Copy Signature" and paste the signature into your email's signature settings.
+        Preencha o formulário abaixo, verifique a pré-visualização e clique em “Copiar Assinatura” para colá-la nas configurações de assinatura do seu e-mail.
       </p>
 
       <div class="row">
         <div class="field">
-          <label for="name">Full name</label>
+          <label for="name">Nome completo</label>
           <input id="name" placeholder="Jane Doe">
         </div>
         <div class="field">
-          <label for="title">Title</label>
-          <input id="title" placeholder="Job Title">
+          <label for="title">Cargo</label>
+          <input id="title" placeholder="Cargo">
         </div>
       </div>
 
       <div class="row">
         <div class="field">
-          <label for="phone">Phone</label>
+          <label for="phone">Telefone</label>
           <input id="phone" placeholder="+1 (555) 555-5555">
         </div>
         <div class="field">
-          <label for="email">Email</label>
+          <label for="email">E-mail</label>
           <input id="email" placeholder="janedoe@resilionenergia.com">
         </div>
       </div>
 
       <div class="actions">
-        <button id="copy-btn">Copy Signature</button>
+        <button id="copy-btn">Copiar Assinatura</button>
       </div>
 
       <div class="preview-wrapper">
-        <div class="preview-title">Preview</div>
+        <div class="preview-title">Pré-visualização</div>
         <div class="email-frame">
           <div class="email-header-row">
-            <div class="email-header-label">To</div>
+            <div class="email-header-label">Para</div>
             <div class="email-header-input">johndoe@example.com</div>
           </div>
           <div class="email-header-row">
-            <div class="email-header-label">Subject</div>
-            <div class="email-header-input">Your email subject line</div>
+            <div class="email-header-label">Assunto</div>
+            <div class="email-header-input">O assunto do seu e-mail</div>
           </div>
           <div class="email-body">
-            <p>Hello,</p>
-            <p>This is to give you an idea of what an email looks like with your new signature.</p>
-            <p>Best regards,</p>
+            <p>Olá,</p>
+            <p>Este é um exemplo de como ficará um e-mail com sua nova assinatura.</p>
+            <p>Atenciosamente,</p>
             <p><span id="preview-firstname">Jane</span></p>
             <div id="signature-preview"></div>
           </div>
@@ -249,7 +249,7 @@
 
     function buildSignatureHtml() {
       var name  = nameInput.value  || 'Jane Doe';
-      var title = titleInput.value || 'Job Title';
+      var title = titleInput.value || 'Cargo';
       var phone = phoneInput.value || '+1 (555) 555-5555';
       var email = emailInput.value || 'janedoe@resilionenergia.com';
 
@@ -262,9 +262,9 @@
         + '<div style="font-size:14px; font-weight:bold;">' + name + '</div>'
         + '<div style="color:#555;">' + title + '</div>'
         + '<div style="margin-top:6px;">'
-        + '<span>Phone: ' + phone + '</span><br>'
-        + '<span>Email: <a href="mailto:' + email + '" style="color:#000;">' + email + '</a></span><br>'
-        + '<span>Website: <a href="https://resilionenergia.com.br/" style="color:#000;">resilionenergia.com.br</a></span>'
+        + '<span>Telefone: ' + phone + '</span><br>'
+        + '<span>E-mail: <a href="mailto:' + email + '" style="color:#000;">' + email + '</a></span><br>'
+        + '<span>Site: <a href="https://resilionenergia.com.br/" style="color:#000;">resilionenergia.com.br</a></span>'
         + '</div>'
         + '</td>'
         + '</tr>'
@@ -318,7 +318,7 @@
         document.execCommand('copy');
         showCopied();
       } catch (err) {
-        alert('Copy failed. Please manually select and copy the signature from the preview below.');
+        alert('Falha ao copiar. Por favor, selecione e copie manualmente a assinatura na pré-visualização abaixo.');
       }
 
       sel.removeAllRanges();
@@ -326,9 +326,9 @@
     }
 
     function showCopied() {
-      copyBtn.textContent = 'Copied!';
+      copyBtn.textContent = 'Copiado!';
       setTimeout(function() {
-        copyBtn.textContent = 'Copy Signature';
+        copyBtn.textContent = 'Copiar Assinatura';
       }, 1500);
     }
   </script>
