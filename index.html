@@ -174,7 +174,6 @@
       margin-bottom: 10px;
     }
 
-    /* On small screens */
     @media (max-width: 600px) {
       .card {
         padding: 18px 16px 24px;
@@ -183,73 +182,77 @@
   </style>
 </head>
 <body>
-  <div class ="page">
+  <div class="page">
     <div class="card">
       <h1>Resilion Email Signature Generator</h1>
-      <p class ="subtitle">
-        Fill out the form below, check the preview, then click "Copy Signature" and paste the signature into your email's signature settings. 
+      <p class="subtitle">
+        Fill out the form below, check the preview, then click "Copy Signature" and paste the signature into your email's signature settings.
       </p>
 
-    <!-- Form fields -->
-    <div class ="row">
-      <div class ="field">
-        <label for="name">Full name</label>
-        <input id="name" placeholder="Jane Doe">
+      <!-- Form fields -->
+      <div class="row">
+        <div class="field">
+          <label for="name">Full name</label>
+          <input id="name" placeholder="Jane Doe">
+        </div>
+        <div class="field">
+          <label for="title">Title</label>
+          <input id="title" placeholder="Job Title">
+        </div>
       </div>
-    <div class ="field">
-      <label for="title">Title</label>
-      <input id="title" placeholder="Job Title">
+
+      <div class="row">
+        <div class="field">
+          <label for="phone">Phone</label>
+          <input id="phone" placeholder="+1 (555) 555-5555">
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" placeholder="janedoe@resilionenergia.com">
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="copy-btn">Copy Signature</button>
+      </div>
+
+      <!-- Preview -->
+      <div class="preview-wrapper">
+        <div class="preview-title">Preview</div>
+        <div class="email-frame">
+          <div class="email-header-row">
+            <div class="email-header-label">To</div>
+            <div class="email-header-input">johndoe@example.com</div>
+          </div>
+          <div class="email-header-row">
+            <div class="email-header-label">Subject</div>
+            <div class="email-header-input">Your email subject line</div>
+          </div>
+
+          <div class="email-body">
+            <p>Hello,</p>
+            <p>This is to give you an idea of what an email looks like with your new signature.</p>
+            <p>Best regards,</p>
+            <p>Jane</p>
+            <!-- FIX: was id="signature=preview" (= instead of -) -->
+            <div id="signature-preview"></div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
-
-  <div class="row">
-    <div class="field">
-      <label for="phone">Phone</label>
-      <input id="phone" placeholder="+1 (555) 555-5555">
-    </div>
-    <div class ="field">
-      <label for="email">Email</label>
-      <input id="email" placeholder="janedoe@resilionenergia.com">
-    </div>
-  </div>
-
-  <div class="actions">
-    <button id="copy-btn">Copy Signature</button>
-  </div>
-
-  <!-- Preview -->
-  <div class="preview-wrapper">
-    <div class="preview-title">Preview</div>
-    <div class="email-frame">
-    <div class="email-header-row">
-      <div class="email-header-label">To</div>
-      <div class="email-header-input">johndoe@example.com</div>
-    </div>
-    <div class="email-header-row">
-      <div class="email-header-label">Subject</div>
-      <div class="email-header-input">Your email subject line</div>
-    </div>
-
-    <div class="email-body">
-      <p>Hello,</p>
-      <p>This is to give you an idea of what an email looks like with your new signature.</p>
-      <p>Best regards,</p>
-      <p>Jane</p>
-      <div id="signature-preview"></div>
-    </div>
-  </div>
-</div>
 
   <script>
-    const nameInput = document.getElementById('name');
+    const nameInput  = document.getElementById('name');
     const titleInput = document.getElementById('title');
     const phoneInput = document.getElementById('phone');
     const emailInput = document.getElementById('email');
-    const preview = document.getElementById('signature-preview');
-    const copyBtn = document.getElementById('copy-btn');
+    const preview    = document.getElementById('signature-preview');
+    const copyBtn    = document.getElementById('copy-btn');
 
     function buildSignatureHtml() {
-      const name = nameInput.value || 'Jane Doe';
+      const name  = nameInput.value  || 'Jane Doe';
       const title = titleInput.value || 'Job Title';
       const phone = phoneInput.value || '+1 (555) 555-5555';
       const email = emailInput.value || 'janedoe@resilionenergia.com';
@@ -257,17 +260,16 @@
       return `
         <table cellpadding="0" cellspacing="0" style="font-family: Arial, sans-serif; font-size: 12px;">
           <tr>
-            <td style="padding-right: 12px;">
-              <!-- Resilion logo goes here -->
-              <img src="https://github.com/catherine89c/resilion-signature/blob/main/Resilion%20ON%20black.png?raw=true" alt="Resilion" style="display:block;">
+            <td style="padding-right: 12px; vertical-align: top;">
+              <img src="https://github.com/catherine89c/resilion-signature/blob/main/Resilion%20ON%20black.png?raw=true" alt="Resilion" style="display:block; width:120px;">
             </td>
-            <td style="border-left: 1px solid #ccc; padding-left: 12px;">
+            <td style="border-left: 1px solid #ccc; padding-left: 12px; vertical-align: top;">
               <div style="font-size:14px; font-weight:bold;">${name}</div>
               <div style="color:#555;">${title}</div>
               <div style="margin-top:6px;">
                 <span>Phone: ${phone}</span><br>
-                <span>Email: <a href="mailto:${email}">${email}</a></span><br>
-                <span>Website: <a href="https://resilionenergia.com.br/">resilionenergia.com.br</a></span>
+                <span>Email: <a href="mailto:${email}" style="color:#000;">${email}</a></span><br>
+                <span>Website: <a href="https://resilionenergia.com.br/" style="color:#000;">resilionenergia.com.br</a></span>
               </div>
             </td>
           </tr>
@@ -283,26 +285,56 @@
       input.addEventListener('input', updatePreview);
     });
 
-    updatePreview(); // initial
+    updatePreview(); // render on load
 
-copyBtn.addEventListener('click', async () => {
-  const signatureHtml = buildSignatureHtml();
+    // Copy button — tries modern Clipboard API first, falls back to execCommand
+    copyBtn.addEventListener('click', () => {
+      const signatureHtml = buildSignatureHtml();
 
-  try {
-    await navigator.clipboard.write([
-      new ClipboardItem({
-        "text/html": new Blob([signatureHtml], { type: "text/html" }),
-        "text/plain": new Blob([signatureHtml], { type: "text/plain" })
-      })
-    ]);
+      if (navigator.clipboard && window.ClipboardItem) {
+        navigator.clipboard.write([
+          new ClipboardItem({
+            "text/html":  new Blob([signatureHtml], { type: "text/html" }),
+            "text/plain": new Blob([signatureHtml], { type: "text/plain" })
+          })
+        ]).then(() => {
+          showCopied();
+        }).catch(() => {
+          fallbackCopy(signatureHtml);
+        });
+      } else {
+        fallbackCopy(signatureHtml);
+      }
+    });
 
-    copyBtn.textContent = 'Copied!';
-    setTimeout(() => copyBtn.textContent = 'Copy Signature', 1500);
+    function fallbackCopy(html) {
+      const el = document.createElement('div');
+      el.setAttribute('contenteditable', 'true');
+      el.style.cssText = 'position:fixed;opacity:0;top:0;left:0;pointer-events:none;';
+      el.innerHTML = html;
+      document.body.appendChild(el);
 
-  } catch (err) {
-    alert('Copy failed. You may need to copy manually from the preview.');
-  }
-});
+      const range = document.createRange();
+      range.selectNodeContents(el);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+
+      try {
+        document.execCommand('copy');
+        showCopied();
+      } catch (err) {
+        alert('Copy failed. Please manually select and copy the signature from the preview below.');
+      }
+
+      sel.removeAllRanges();
+      document.body.removeChild(el);
+    }
+
+    function showCopied() {
+      copyBtn.textContent = 'Copied!';
+      setTimeout(() => copyBtn.textContent = 'Copy Signature', 1500);
+    }
   </script>
 </body>
 </html>
